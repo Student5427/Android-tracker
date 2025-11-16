@@ -7,9 +7,9 @@ python -m venv .venv
 ```bash
 .venv\Scripts\activate
 ```
-- Установить для виртуальоного окружения все необходимые для проекта зависимости: 
+- Установить для виртуального окружения все необходимые для проекта зависимости: 
 ```bash
 pip install -r requirements.txt
 ```
 - Пометить папку src как корневую папку проекта: `пкм по src, mark directory as source root`
-- Запустить main.py, API документация открывается через http://localhost:8000/docs`
+- Запустить main.py, API документация открывается через http://localhost:8000/docs
