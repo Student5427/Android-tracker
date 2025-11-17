@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@color/orange">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ЛОГОТИП -->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"
+            android:alpha="0.8" />
+
+        <!-- Заголовок -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:text="Регистрация"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <!-- ФИО -->
+        <EditText
+            android:id="@+id/registerFullName"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edittext_background"
+            android:hint="ФИО"
+            android:inputType="textCapWords"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <!-- Возраст -->
+        <EditText
+            android:id="@+id/registerAge"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Возраст"
+            android:inputType="number"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <!-- Вес -->
+        <EditText
+            android:id="@+id/registerWeight"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Вес (кг)"
+            android:inputType="numberDecimal"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <!-- Email -->
+        <EditText
+            android:id="@+id/registerEmail"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <!-- Кнопка Продолжить -->
+        <Button
+            android:id="@+id/continueButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/black"
+            android:text="Продолжить"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

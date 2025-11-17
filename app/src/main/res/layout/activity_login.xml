@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@color/orange">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ЛОГОТИП - ДОБАВЬТЕ ЭТО -->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo"
+            android:alpha="0.8" />
+
+        <!-- Заголовок приложения -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:gravity="center"
+            android:text="Спортивный Трекер"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <!-- Остальной код без изменений -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:text="Вход в аккаунт"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <!-- Поле Email -->
+        <EditText
+            android:id="@+id/loginEmail"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <!-- Поле Пароля - ПРОСТОЙ EditText -->
+        <EditText
+            android:id="@+id/loginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Пароль"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <!-- Кнопка Войти -->
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/black"
+            android:text="Войти"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Кнопка Регистрации -->
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/white"
+            android:text="Зарегистрироваться"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</ScrollView>

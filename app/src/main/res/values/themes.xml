@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Базовая тема приложения -->
+    <style name="Base.Theme.Mytest" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Цвет статус бара -->
+        <item name="android:statusBarColor">@color/orange</item>
+        <item name="android:windowLightStatusBar">true</item> <!-- Темные иконки -->
+    </style>
+
+    <style name="Theme.Mytest" parent="Base.Theme.Mytest" />
+</resources>
