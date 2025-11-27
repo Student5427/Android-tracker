@@ -9,7 +9,7 @@ class PreparationStageConfiguration(BaseWithCreateAndUpdateTime, BaseWithDelete)
     Конфигурация этапа подготовки
 
     Attributes:
-        stage_name: Название этапа подготовки (StageNames)  # TODO: create StageNames enum
+        stage_name: Название этапа подготовки (StageName)
         week_number: Номер тренировочной недели
         annual_volume_percent: Процент от годового объема
         week_volume_percent: Процент от объема цикла

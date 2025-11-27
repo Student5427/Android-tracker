@@ -9,15 +9,15 @@ class TrainingType(BaseWithCreateAndUpdateTime, BaseWithDelete):
     Тип тренировки
 
     Attributes:
-        training_type_name: Название типа тренировок (TrainingTypeNames)  # TODO: create enum TrainingTypeNames
-        training_intensity: Классификация типа тренировки по интенсивности (TrainingIntensities)  # TODO: create enum TrainingIntensities
+        name: Название типа тренировки (TrainingTypeName)
+        intensity: Интенсивность тренировки (TrainingTypeIntensity)
     """
 
     __tablename__ = "training_type"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    training_type_name: Mapped[str] = mapped_column(String)
-    training_intensity: Mapped[str] = mapped_column(String)
+    name: Mapped[str] = mapped_column(String)
+    intensity: Mapped[str] = mapped_column(String)
 
     # TODO: relationships
 

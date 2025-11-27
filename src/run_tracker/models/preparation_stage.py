@@ -16,19 +16,19 @@ class PreparationStage(BaseWithCreateAndUpdateTime, BaseWithDelete):
         cycle_volume: Объем цикла в часах (cycle_volume = annual_volume_percent / 100 * planned_annual_volume)
         week_volume: Недельный объем в часах (week_volume = cycle_volume * week_volume_percent / 100)
         planned_speed_training_volume: Запланированный объем времени для скоростных тренировок в минутах
-        (planned_speed_training_volume = week_volume * 60 * speed_training_percent / 100)
+                                       (planned_speed_training_volume = week_volume * 60 * speed_training_percent / 100)
         actual_speed_training_volume: Выполненный объем времени скоростных тренировок в минутах
         planned_tempo_training_volume: Запланированный объем времени для темповых тренировок в минутах
-        (planned_tempo_training_volume = week_volume * 60 * tempo_training_percent / 100)
+                                       (planned_tempo_training_volume = week_volume * 60 * tempo_training_percent / 100)
         actual_tempo_training_volume: Выполненный объем времени для темповых тренировок в минутах
         planned_interval_training_volume: Запланированный объем времени для интервальных тренировок в минутах
-        (planned_interval_training_volume = week_volume * 60 * interval_training_percent / 100)
+                                 (planned_interval_training_volume = week_volume * 60 * interval_training_percent / 100)
         actual_interval_training_volume: Выполненный объем времени для интервальных тренировок в минутах
         planned_distance_training_volume: Запланированный объем времени для длительных тренировок в минутах
-        (planned_distance_training_volume = week_volume * 60 * distance_training_percent / 100)
+                                 (planned_distance_training_volume = week_volume * 60 * distance_training_percent / 100)
         actual_distance_training_volume: Выполненный объем времени для длительных тренировок в минутах
         planned_strength_training_volume: Запланированный объем времени для силовых тренировок в минутах
-        (planned_strength_training_volume = week_volume * 60 * strength_training_percent / 100)
+                                 (planned_strength_training_volume = week_volume * 60 * strength_training_percent / 100)
         actual_strength_training_volume: Выполненный объем времени для силовых тренировок в минутах
         training_plan_id: Идентификатор плана тренировок
         preparation_stage_configuration_id: Идентификатор конфигурации этапа подготовки

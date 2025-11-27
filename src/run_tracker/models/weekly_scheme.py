@@ -9,13 +9,13 @@ class WeeklyScheme(BaseWithCreateAndUpdateTime, BaseWithDelete):
     Недельная схема
 
     Attributes:
-        monday_load: Тип тренировки по интенсивности для понедельника (TrainingLoadTypes)  # TODO: create TrainingLoadTypes enum
-        tuesday_load: Тип тренировки по интенсивности для вторника (TrainingLoadTypes)
-        wednesday_load: Тип тренировки по интенсивности для среды (TrainingLoadTypes)
-        thursday_load: Тип тренировки по интенсивности для четверга (TrainingLoadTypes)
-        friday_load: Тип тренировки по интенсивности для пятницы (TrainingLoadTypes)
-        saturday_load: Тип тренировки по интенсивности для субботы (TrainingLoadTypes)
-        sunday_load: Тип тренировки по интенсивности для воскресенья (TrainingLoadTypes)
+        monday_load: Тип тренировки по интенсивности для понедельника (TrainingLoadType)
+        tuesday_load: Тип тренировки по интенсивности для вторника (TrainingLoadType)
+        wednesday_load: Тип тренировки по интенсивности для среды (TrainingLoadType)
+        thursday_load: Тип тренировки по интенсивности для четверга (TrainingLoadType)
+        friday_load: Тип тренировки по интенсивности для пятницы (TrainingLoadType)
+        saturday_load: Тип тренировки по интенсивности для субботы (TrainingLoadType)
+        sunday_load: Тип тренировки по интенсивности для воскресенья (TrainingLoadType)
     """
 
     __tablename__ = "weekly_scheme"
