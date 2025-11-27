@@ -2,9 +2,14 @@ from datetime import timedelta
 
 from sqlalchemy import Integer, String, Boolean, ForeignKey, Interval
 from sqlalchemy.dialects.postgresql import INT4RANGE, Range
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from run_tracker.models import Training
 
 
 class TrainingBlock(BaseWithCreateAndUpdateTime, BaseWithDelete):
@@ -34,6 +39,6 @@ class TrainingBlock(BaseWithCreateAndUpdateTime, BaseWithDelete):
     is_system: Mapped[bool] = mapped_column(Boolean, server_default="false")
     training_id: Mapped[int] = mapped_column(ForeignKey("training.id"))
 
-    # TODO: relationships
+    training: Mapped["Training"] = relationship("Training", back_populates="training_blocks")
 
     __table_args__ = ({"comment": "Тренировочный блок"},)

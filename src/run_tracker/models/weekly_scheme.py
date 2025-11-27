@@ -1,7 +1,12 @@
 from sqlalchemy import Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from run_tracker.models import PreparationStage
 
 
 class WeeklyScheme(BaseWithCreateAndUpdateTime, BaseWithDelete):
@@ -29,6 +34,8 @@ class WeeklyScheme(BaseWithCreateAndUpdateTime, BaseWithDelete):
     saturday_load: Mapped[str] = mapped_column(String)
     sunday_load: Mapped[str] = mapped_column(String)
 
-    # TODO: relationships
+    preparation_stage: Mapped["PreparationStage"] = relationship(
+        "PreparationStage", back_populates="weekly_scheme"
+    )
 
     __table_args__ = ({"comment": "Недельная схема"},)

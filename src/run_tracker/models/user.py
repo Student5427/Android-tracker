@@ -21,7 +21,7 @@ class User(BaseWithCreateAndUpdateTime, BaseWithDelete):
         last_name: Фамилия
         patronymic: Отчество
         email: Электронная почта
-        weight: Вес
+        weight: Вес  # TODO: ask question
         height: Рост
     """
 

@@ -1,7 +1,12 @@
 from sqlalchemy import Integer, String, Numeric
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from run_tracker.models import PreparationStage
 
 
 class PreparationStageConfiguration(BaseWithCreateAndUpdateTime, BaseWithDelete):
@@ -33,6 +38,8 @@ class PreparationStageConfiguration(BaseWithCreateAndUpdateTime, BaseWithDelete)
     distance_training_percent: Mapped[float] = mapped_column(Numeric(precision=5, scale=2))
     strength_training_percent: Mapped[float] = mapped_column(Numeric(precision=5, scale=2))
 
-    # TODO: relationships
+    preparation_stage: Mapped["PreparationStage"] = relationship(
+        "PreparationStage", back_populates="preparation_stage_configuration"
+    )
 
     __table_args__ = ({"comment": "Конфигурация этапа подготовки"},)

@@ -12,7 +12,7 @@ class TestModel(BaseWithCreateAndUpdateTime, BaseWithDelete):
         test_int_attr: Тестовый аттрибут
     """
 
-    __tablename__ = "test_model"
+    __tablename__ = "test_model"  # TODO: delete
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     test_int_attr: Mapped[int] = mapped_column(Integer)

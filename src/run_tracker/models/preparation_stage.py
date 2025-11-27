@@ -1,9 +1,14 @@
 from datetime import datetime
 
 from sqlalchemy import Integer, Numeric, DateTime, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from run_tracker.models import TrainingPlan, PreparationStageConfiguration, WeeklyScheme, Training
 
 
 class PreparationStage(BaseWithCreateAndUpdateTime, BaseWithDelete):
@@ -56,6 +61,16 @@ class PreparationStage(BaseWithCreateAndUpdateTime, BaseWithDelete):
     preparation_stage_configuration_id: Mapped[int] = mapped_column(ForeignKey("preparation_stage_configuration.id"))
     weekly_scheme_id: Mapped[int] = mapped_column(ForeignKey("weekly_scheme.id"))
 
-    # TODO: relationships
+    training_plan: Mapped["TrainingPlan"] = relationship(
+        "TrainingPlan", back_populates="preparation_stage"
+    )
+    preparation_stage_configuration: Mapped["PreparationStageConfiguration"] = relationship(
+        "PreparationStageConfiguration", back_populates="preparation_stage"
+    )
+    weekly_scheme: Mapped["WeeklyScheme"] = relationship(
+        "WeeklyScheme", back_populates="preparation_stage"
+    )
+
+    trainings: Mapped[list["Training"]] = relationship("Training", back_populates="preparation_stage")
 
     __table_args__ = ({"comment": "Этап подготовки"},)

@@ -5,6 +5,7 @@ from run_tracker.repositories.test_repository import TestRepository
 
 
 class TestService:
+    # TODO: delete
     def __init__(
         self,
         session: AsyncSession = Depends(get_session),

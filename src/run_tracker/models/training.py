@@ -1,9 +1,14 @@
 from datetime import datetime, timedelta
 
 from sqlalchemy import Integer, String, DateTime, ForeignKey, Interval
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from run_tracker.models import PreparationStage, TrainingType, TrainingBlock, UserTraining
 
 
 class Training(BaseWithCreateAndUpdateTime, BaseWithDelete):
@@ -37,6 +42,19 @@ class Training(BaseWithCreateAndUpdateTime, BaseWithDelete):
     covered_distance: Mapped[int] = mapped_column(Integer)
     preparation_stage_id: Mapped[int] = mapped_column(ForeignKey("preparation_stage.id"))
 
-    # TODO: relationships
+    preparation_stage: Mapped["PreparationStage"] = relationship(
+        "PreparationStage", back_populates="trainings"
+    )
+
+    training_type: Mapped["TrainingType"] = relationship("TrainingType", back_populates="trainings")
+    training_blocks: Mapped[list["TrainingBlock"]] = relationship(
+        "TrainingBlock",
+        back_populates="training",
+        cascade="all, delete-orphan",
+        order_by="TrainingBlock.order_number",
+    )
+    user_training: Mapped[list["UserTraining"]] = relationship(
+        "UserTraining", back_populates="training"
+    )
 
     __table_args__ = ({"comment": "Тренировка"},)

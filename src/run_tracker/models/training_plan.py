@@ -1,9 +1,14 @@
 from datetime import datetime
 
 from sqlalchemy import Integer, String, DateTime
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from run_tracker.models import PreparationStage, UserTrainingPlan
 
 
 class TrainingPlan(BaseWithCreateAndUpdateTime, BaseWithDelete):
@@ -29,6 +34,11 @@ class TrainingPlan(BaseWithCreateAndUpdateTime, BaseWithDelete):
     planned_annual_volume: Mapped[int] = mapped_column(Integer)
     actual_annual_volume: Mapped[int] = mapped_column(Integer)
 
-    # TODO: relationships
+    preparation_stages: Mapped[list["PreparationStage"]] = relationship(
+        "PreparationStage", back_populates="training_plan"
+    )
+    user_training_plan: Mapped[list["UserTrainingPlan"]] = relationship(
+        "UserTrainingPlan", back_populates="training_plan"
+    )
 
     __table_args__ = ({"comment": "План тренировок"},)
