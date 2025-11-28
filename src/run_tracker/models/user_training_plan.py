@@ -23,7 +23,7 @@ class UserTrainingPlan(BaseWithCreateAndUpdateTime, BaseWithDelete):
     __tablename__ = "user_training_plan"
 
     user_id: Mapped[UUID] = mapped_column(ForeignKey("user.id"), primary_key=True)
-    training_plan_id: Mapped[UUID] = mapped_column(ForeignKey("training_plan.id"), primary_key=True)
+    training_plan_id: Mapped[int] = mapped_column(ForeignKey("training_plan.id"), primary_key=True)
 
     user: Mapped["User"] = relationship("User", back_populates="user_training_plans")
     training_plan: Mapped["TrainingPlan"] = relationship("TrainingPlan", back_populates="user_training_plan")

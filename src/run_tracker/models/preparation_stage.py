@@ -62,13 +62,13 @@ class PreparationStage(BaseWithCreateAndUpdateTime, BaseWithDelete):
     weekly_scheme_id: Mapped[int] = mapped_column(ForeignKey("weekly_scheme.id"))
 
     training_plan: Mapped["TrainingPlan"] = relationship(
-        "TrainingPlan", back_populates="preparation_stage"
+        "TrainingPlan", back_populates="preparation_stages"
     )
     preparation_stage_configuration: Mapped["PreparationStageConfiguration"] = relationship(
-        "PreparationStageConfiguration", back_populates="preparation_stage"
+        "PreparationStageConfiguration", back_populates="preparation_stages"
     )
     weekly_scheme: Mapped["WeeklyScheme"] = relationship(
-        "WeeklyScheme", back_populates="preparation_stage"
+        "WeeklyScheme", back_populates="preparation_stages"
     )
 
     trainings: Mapped[list["Training"]] = relationship("Training", back_populates="preparation_stage")

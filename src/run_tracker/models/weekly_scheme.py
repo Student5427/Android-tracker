@@ -34,7 +34,7 @@ class WeeklyScheme(BaseWithCreateAndUpdateTime, BaseWithDelete):
     saturday_load: Mapped[str] = mapped_column(String)
     sunday_load: Mapped[str] = mapped_column(String)
 
-    preparation_stage: Mapped["PreparationStage"] = relationship(
+    preparation_stages: Mapped[list["PreparationStage"]] = relationship(
         "PreparationStage", back_populates="weekly_scheme"
     )
 

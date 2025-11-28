@@ -1,4 +1,3 @@
-from .test_model import TestModel
 from .preparation_stage import PreparationStage
 from .preparation_stage_configuration import PreparationStageConfiguration
 from .training import Training
@@ -13,7 +12,6 @@ from .weekly_scheme import WeeklyScheme
 
 
 __all__ = (
-    "TestModel",  # TODO: delete
     "PreparationStage",
     "PreparationStageConfiguration",
     "Training",

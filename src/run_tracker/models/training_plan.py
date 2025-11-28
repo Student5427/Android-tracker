@@ -37,7 +37,7 @@ class TrainingPlan(BaseWithCreateAndUpdateTime, BaseWithDelete):
     preparation_stages: Mapped[list["PreparationStage"]] = relationship(
         "PreparationStage", back_populates="training_plan"
     )
-    user_training_plan: Mapped[list["UserTrainingPlan"]] = relationship(
+    user_training_plans: Mapped[list["UserTrainingPlan"]] = relationship(
         "UserTrainingPlan", back_populates="training_plan"
     )
 

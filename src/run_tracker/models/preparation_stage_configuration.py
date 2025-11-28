@@ -38,7 +38,7 @@ class PreparationStageConfiguration(BaseWithCreateAndUpdateTime, BaseWithDelete)
     distance_training_percent: Mapped[float] = mapped_column(Numeric(precision=5, scale=2))
     strength_training_percent: Mapped[float] = mapped_column(Numeric(precision=5, scale=2))
 
-    preparation_stage: Mapped["PreparationStage"] = relationship(
+    preparation_stages: Mapped[list["PreparationStage"]] = relationship(
         "PreparationStage", back_populates="preparation_stage_configuration"
     )
 
