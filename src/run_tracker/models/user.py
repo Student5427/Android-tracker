@@ -9,7 +9,7 @@ from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from run_tracker.models import UserFriends
+    from run_tracker.models import UserFriends, UserTraining, UserTrainingPlan
 
 
 class User(BaseWithCreateAndUpdateTime, BaseWithDelete):
@@ -35,6 +35,17 @@ class User(BaseWithCreateAndUpdateTime, BaseWithDelete):
     weight: Mapped[float] = mapped_column(Numeric(precision=4, scale=1))
     height: Mapped[int] = mapped_column(Integer)
 
-    friends: Mapped[list["UserFriends"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    friends: Mapped[list["UserFriends"]] = relationship(
+        "UserFriends", foreign_keys="[UserFriends.user_id]", back_populates="user"
+    )
+    friend_of: Mapped[list["UserFriends"]] = relationship(
+        "UserFriends", foreign_keys="[UserFriends.friend_id]", back_populates="friend"
+    )
+    user_trainings: Mapped[list["UserTraining"]] = relationship(
+        "UserTraining", back_populates="user", cascade="all, delete-orphan"
+    )
+    user_training_plans: Mapped[list["UserTrainingPlan"]] = relationship(
+        "UserTrainingPlan", back_populates="user", cascade="all, delete-orphan"
+    )
 
     __table_args__ = ({"comment": "Таблица пользователей"},)
