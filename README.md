@@ -12,4 +12,9 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 - Пометить папку src как корневую папку проекта: `пкм по src, mark directory as source root`
+- Применить миграции alembic для БД (ее адрес можно указать в .env-файле):
+```bash
+cd src
+alembic upgrade head
+```
 - Запустить main.py, API документация открывается через http://localhost:8000/docs
