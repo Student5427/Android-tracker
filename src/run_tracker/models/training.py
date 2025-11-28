@@ -53,7 +53,7 @@ class Training(BaseWithCreateAndUpdateTime, BaseWithDelete):
         cascade="all, delete-orphan",
         order_by="TrainingBlock.order_number",
     )
-    user_training: Mapped[list["UserTraining"]] = relationship(
+    user_training: Mapped["UserTraining"] = relationship(
         "UserTraining", back_populates="training"
     )
 

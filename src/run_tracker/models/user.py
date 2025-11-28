@@ -2,7 +2,7 @@ from sqlalchemy import Integer, String, Numeric
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID as UUID_DB
 
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
 
@@ -27,7 +27,7 @@ class User(BaseWithCreateAndUpdateTime, BaseWithDelete):
 
     __tablename__ = "user"
 
-    id: Mapped[UUID] = mapped_column(UUID_DB(as_uuid=True), primary_key=True)
+    id: Mapped[UUID] = mapped_column(UUID_DB(as_uuid=True), primary_key=True, default=uuid4)
     first_name: Mapped[str] = mapped_column(String)
     last_name: Mapped[str] = mapped_column(String)
     patronymic: Mapped[str] = mapped_column(String)

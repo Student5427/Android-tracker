@@ -2,7 +2,7 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
-import models
+import core
 from settings import settings
 
 
@@ -13,7 +13,7 @@ config.set_main_option("sqlalchemy.url", db_url_escaped)
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-target_metadata = models.Base.metadata
+target_metadata = core.Base.metadata
 
 
 def run_migrations_offline() -> None:
