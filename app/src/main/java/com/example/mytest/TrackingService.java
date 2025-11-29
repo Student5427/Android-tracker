@@ -125,11 +125,19 @@ public class TrackingService extends Service {
         }
         lastLocation = location;
 
+        // Рассчитываем скорость в км/ч (location.getSpeed() возвращает м/с)
+        float speedKmh = location.getSpeed() * 3.6f;
+
+        // Если скорость неопределена или слишком мала, устанавливаем 0
+        if (Float.isNaN(speedKmh) || speedKmh < 0.1f) {
+            speedKmh = 0;
+        }
+
         // Отправляем broadcast с новыми данными
         Intent intent = new Intent(ACTION_LOCATION_UPDATE);
         intent.putExtra(EXTRA_LOCATION, location);
         intent.putExtra(EXTRA_DISTANCE, totalDistance);
-        intent.putExtra(EXTRA_SPEED, location.getSpeed() * 3.6f);
+        intent.putExtra(EXTRA_SPEED, speedKmh);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 

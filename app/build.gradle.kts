@@ -42,6 +42,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
     // Для SharedPreferences
     implementation("androidx.preference:preference:1.2.1")
+    // Gson для работы с JSON
+    implementation("com.google.code.gson:gson:2.10.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

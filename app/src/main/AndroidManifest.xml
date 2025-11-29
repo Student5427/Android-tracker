@@ -52,11 +52,33 @@
             android:exported="false">
         </activity>
 
+        <activity
+            android:name=".ProfileActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false" />
+
         <service
             android:name=".TrackingService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
+        <!-- Главный экран -->
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false" />
+
+        <!-- Экран списка тренировок -->
+        <activity
+            android:name=".WorkoutListActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false" />
+
+        <!-- Экран деталей тренировки -->
+        <activity
+            android:name=".WorkoutDetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false" />
 
     </application>
 </manifest>

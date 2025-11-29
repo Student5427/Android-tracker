@@ -13,7 +13,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Теперь используем EditText вместо TextInputEditText
         EditText emailField = findViewById(R.id.loginEmail);
         EditText passwordField = findViewById(R.id.loginPassword);
 
@@ -25,17 +24,17 @@ public class LoginActivity extends AppCompatActivity {
 
         Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(v -> {
-            // Получаем текст из полей
             String email = emailField.getText().toString();
             String password = passwordField.getText().toString();
 
-            // Простая проверка (можно удалить если не нужно)
             if (email.isEmpty() || password.isEmpty()) {
                 android.widget.Toast.makeText(LoginActivity.this,
                         "Заполните все поля", android.widget.Toast.LENGTH_SHORT).show();
             } else {
-                Intent intent = new Intent(LoginActivity.this, TrackingActivity.class);
+                // Теперь переходим на главный экран вместо TrackingActivity
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish(); // Закрываем экран входа
             }
         });
     }

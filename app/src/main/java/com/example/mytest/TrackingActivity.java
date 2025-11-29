@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -21,6 +22,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.Gson;
 
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -30,6 +32,7 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,7 +41,8 @@ public class TrackingActivity extends AppCompatActivity {
     private MapView mapView;
     private Button startButton, finishButton;
     private TextView distanceText, speedText, avgSpeedText;
-
+    private Workout currentWorkout;
+    private WorkoutManager workoutManager;
     private boolean isTracking = false;
     private List<GeoPoint> pathPoints = new ArrayList<>();
     private Polyline pathPolyline;
@@ -47,6 +51,10 @@ public class TrackingActivity extends AppCompatActivity {
 
     private float totalDistance = 0;
     private List<Float> speedSamples = new ArrayList<>();
+
+    private String workoutType;
+    private String workoutId;
+    private boolean isPlannedWorkout;
 
     private static final int LOCATION_PERMISSION_REQUEST = 1;
 
@@ -75,6 +83,14 @@ public class TrackingActivity extends AppCompatActivity {
 
         Configuration.getInstance().setUserAgentValue(getPackageName());
         setContentView(R.layout.activity_tracking);
+
+        workoutManager = WorkoutManager.getInstance(this);
+
+        // Получаем данные о тренировке
+        Intent intent = getIntent();
+        workoutType = intent.getStringExtra("workout_type");
+        workoutId = intent.getStringExtra("workout_id");
+        isPlannedWorkout = intent.getBooleanExtra("is_planned", false);
 
         initViews();
         setupMap();
@@ -159,6 +175,28 @@ public class TrackingActivity extends AppCompatActivity {
         startButton.setEnabled(false);
         finishButton.setEnabled(true);
 
+        // Создаем новую тренировку
+        currentWorkout = new Workout();
+        if (workoutId != null) {
+            currentWorkout.setId(workoutId);
+        }
+        if (workoutType != null) {
+            currentWorkout.setType(workoutType);
+            // Устанавливаем заголовок в зависимости от типа
+            switch (workoutType) {
+                case "run":
+                    currentWorkout.setTitle("Бег");
+                    break;
+                case "walk":
+                    currentWorkout.setTitle("Ходьба");
+                    break;
+                case "bicycle":
+                    currentWorkout.setTitle("Велотренировка");
+                    break;
+            }
+        }
+        currentWorkout.setPlanned(isPlannedWorkout);
+
         // Сбрасываем данные
         pathPoints.clear();
         totalDistance = 0;
@@ -188,6 +226,39 @@ public class TrackingActivity extends AppCompatActivity {
         startButton.setEnabled(true);
         finishButton.setEnabled(false);
 
+        // Завершаем тренировку
+        if (currentWorkout != null) {
+            currentWorkout.setEndTime(new Date());
+            currentWorkout.setDuration(currentWorkout.getEndTime().getTime() - currentWorkout.getStartTime().getTime());
+            currentWorkout.setTotalDistance(totalDistance);
+            currentWorkout.setAverageSpeed(calculateAverageSpeed());
+
+            // Расчет максимальной скорости
+            float maxSpeed = calculateMaxSpeed();
+            currentWorkout.setMaxSpeed(maxSpeed);
+
+            // Расчет калорий
+            float calories = calculateCalories(currentWorkout);
+            currentWorkout.setCalories(calories);
+
+            // Получаем ключ даты из интента
+            String dateKey = getIntent().getStringExtra("date_key");
+            boolean isPlanned = getIntent().getBooleanExtra("is_planned", false);
+
+            if (isPlanned && dateKey != null) {
+                // Если это запланированная тренировка, сохраняем по дате
+                workoutManager.addCompletedWorkout(dateKey, currentWorkout);
+            } else if (dateKey != null) {
+                // Если это обычная тренировка, тоже сохраняем по дате
+                workoutManager.addCompletedWorkout(dateKey, currentWorkout);
+            } else {
+                // На всякий случай сохраняем в общий список
+                workoutManager.addWorkout(currentWorkout);
+            }
+
+            currentWorkout = null;
+        }
+
         // Останавливаем сервис
         Intent serviceIntent = new Intent(this, TrackingService.class);
         serviceIntent.setAction("STOP_TRACKING");
@@ -202,11 +273,73 @@ public class TrackingActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG).show();
 
         updateUI();
+
+        // Возвращаемся на главный экран
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(mainIntent);
+        finish();
+    }
+
+    // Метод для расчета максимальной скорости
+    private float calculateMaxSpeed() {
+        if (speedSamples.isEmpty()) return 0;
+        float max = speedSamples.get(0);
+        for (float speed : speedSamples) {
+            if (speed > max) {
+                max = speed;
+            }
+        }
+        return max;
+    }
+    // Упоротый расчет калорий, м.б. надо фиксить
+    private float calculateCalories(Workout workout) {
+        ProfileManager profileManager = ProfileManager.getInstance(this);
+        float userWeight = profileManager.getUserWeight();
+
+
+        float calories = 0;
+
+        switch (workout.getType()) {
+            case "run":
+                // Для бега: калории ≈ вес × дистанция × 1.036
+                calories = userWeight * workout.getTotalDistance() * 1.036f;
+                break;
+
+            case "walk":
+                // Для ходьбы: калории ≈ вес × дистанция × 0.7
+                calories = userWeight * workout.getTotalDistance() * 0.7f;
+                break;
+
+            case "bicycle":
+                // Для велосипеда: калории ≈ вес × дистанция × 0.35
+                calories = userWeight * workout.getTotalDistance() * 0.35f;
+                break;
+
+            default:
+                // Универсальная формула с учетом скорости
+                calories = userWeight * workout.getTotalDistance() * 0.8f;
+        }
+
+        // Корректировка на скорость (чем быстрее - тем больше калорий)
+        float speedFactor = 1.0f + (workout.getAverageSpeed() / 20.0f);
+        calories *= speedFactor;
+
+        // Минимальные калории (базовый метаболизм во время активности)
+        float durationHours = workout.getDuration() / (1000f * 60f * 60f);
+        float minCalories = userWeight * durationHours * 1.2f;
+
+        return Math.max(Math.round(calories), Math.round(minCalories));
     }
 
     // Обработка локаций из сервиса
     private void processLocationFromService(Location location, float speed) {
         GeoPoint newPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
+
+        // Добавляем точку в тренировку
+        if (currentWorkout != null) {
+            currentWorkout.addLocationPoint(new LocationPoint(location));
+        }
 
         // Добавляем точку в путь
         pathPoints.add(newPoint);
