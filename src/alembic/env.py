@@ -7,8 +7,8 @@ from settings import settings
 
 
 config = context.config
-
-db_url_escaped = settings.db_url.replace("+asyncpg", "").replace("%", "%%")
+db_url_escaped = "postgresql://postgres:postgres@localhost:5433/run_tracker"
+# db_url_escaped = settings.db_url.replace("+asyncpg", "").replace("%", "%%")
 config.set_main_option("sqlalchemy.url", db_url_escaped)
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
