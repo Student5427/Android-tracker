@@ -2,3 +2,4 @@
 - определиться по моделям с BaseWithCreateAndUpdateTime, BaseWithDelete
 - подумать над каскадным удалением
 - возможны косяки в relationships
+- разобраться со считыванием .env в докере
