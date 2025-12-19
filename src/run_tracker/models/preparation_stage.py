@@ -1,11 +1,10 @@
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Integer, Numeric, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
-
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from run_tracker.models import TrainingPlan, PreparationStageConfiguration, WeeklyScheme, Training

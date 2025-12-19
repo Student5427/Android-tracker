@@ -1,12 +1,11 @@
 from datetime import timedelta
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Integer, String, Boolean, ForeignKey, Interval
 from sqlalchemy.dialects.postgresql import INT4RANGE, Range
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
-
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from run_tracker.models import Training

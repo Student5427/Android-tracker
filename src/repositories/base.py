@@ -13,7 +13,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql import Delete, Select, Update
 from sqlalchemy.sql.dml import ReturningDelete, ReturningUpdate
 
-
 T = TypeVar("T")
 
 

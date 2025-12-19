@@ -1,8 +1,8 @@
-from fastapi import FastAPI
 import uvicorn
-from settings import settings
-from run_tracker.api import api as run_tracker_api
+from fastapi import FastAPI
 
+from run_tracker.api import api as run_tracker_api
+from settings import settings
 
 app = FastAPI(
     title="Run tracker",

@@ -1,11 +1,10 @@
+from typing import TYPE_CHECKING
+from uuid import UUID
+
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from uuid import UUID
-
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
-
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from run_tracker.models import User

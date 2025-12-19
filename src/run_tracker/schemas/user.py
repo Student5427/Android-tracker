@@ -39,6 +39,13 @@ class UserOutSchema(BaseCamelCaseModel):
         email: Электронная почта
         weight: Вес
         height: Рост
+        created: Дата-время создания
+        created_by: Идентификатор создавшего
+        updated: Дата-время обновления
+        updated_by: Идентификатор обновившего
+        is_deleted: Пользователь удален
+        deleted: Дата-время удаления
+        deleted_by: Идентификатор удалившего
     """
 
     id: UUID = Field(..., description="Идентификатор")

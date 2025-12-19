@@ -1,9 +1,9 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import Integer, String, Numeric
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
-
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from run_tracker.models import PreparationStage

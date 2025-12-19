@@ -1,12 +1,11 @@
-from sqlalchemy import Integer, String, Numeric
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy.dialects.postgresql import UUID as UUID_DB
-
+from typing import TYPE_CHECKING
 from uuid import UUID, uuid4
 
-from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
+from sqlalchemy import Integer, String, Numeric
+from sqlalchemy.dialects.postgresql import UUID as UUID_DB
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from typing import TYPE_CHECKING
+from models.base import BaseWithCreateAndUpdateTime, BaseWithDelete
 
 if TYPE_CHECKING:
     from run_tracker.models import UserFriends, UserTraining, UserTrainingPlan

@@ -5,7 +5,6 @@ from fastapi import APIRouter, Depends
 from run_tracker.schemas.user import UserCreateSchema, UserOutSchema, UserUpdateSchema
 from run_tracker.services.user_service import UserService
 
-
 router = APIRouter()
 
 

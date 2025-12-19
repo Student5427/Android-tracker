@@ -2,6 +2,7 @@ from uuid import UUID
 
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from core.database import get_session
 from enums.error_code import ErrorCodeEnum
 from exceptions.base import ValidationException
