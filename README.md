@@ -19,7 +19,7 @@ alembic upgrade head
 ```
 - Запустить main.py, документация API открывается через http://localhost:8000/docs
 
-## Запуска в docker-контейнере
+## Запуск в docker-контейнере
 - Запустить Docker Desktop и собрать контейнер:
 ```bash
 docker-compose up -d --build
