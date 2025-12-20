@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-
+from fastapi.responses import RedirectResponse
 from run_tracker.api import api as run_tracker_api
 from settings import settings
 
@@ -16,7 +16,7 @@ app.include_router(run_tracker_api.router, prefix="/api")
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to FastAPI"}
+    return RedirectResponse(url="/docs")
 
 @app.get("/health")
 def health_check():

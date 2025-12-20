@@ -14,11 +14,11 @@ class UserTrainingRepository(BaseRepository):
     async def create_user_training(self, user_id: UUID, payload: UserTrainingCreateSchema) -> Training:
         training = await self.save(
             Training(
-                activity_type=payload.activity_type,
+                activity_type=payload.activity_type.value,
                 training_type_id=payload.training_type_id,
                 planned_duration_training=payload.planned_duration_training,
                 actual_duration_training=None,
-                status=payload.status,
+                status=payload.status.value,
                 rpe_scale=None,
                 date=payload.date,
                 started_at=None,
