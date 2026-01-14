@@ -1,0 +1,55 @@
+x-default-environment: &default-environment
+  POSTGRES_USER: "${POSTGRES_USER:-postgres}"
+  POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-postgres}"
+  POSTGRES_DB: "${POSTGRES_DB:-run_tracker}"
+  POSTGRES_HOST: "${POSTGRES_HOST:-postgres}"
+  POSTGRES_PORT: "${POSTGRES_PORT:-5433}"
+x-default-system-settings: &default-settings
+  restart: on-failure
+
+
+services:
+    postgres:
+      image: postgres:15-alpine
+      container_name: run_tracker
+      hostname: postgres
+      volumes:
+        - postgres_data:/var/lib/postgresql/data/
+      ports:
+          - "5433:5432"
+      healthcheck:
+        test: [ "CMD-SHELL", "pg_isready -U postgres -d run_tracker" ]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+      command: >
+        postgres -c max_connections=400
+               -c shared_buffers=1024MB
+      environment:
+        <<: *default-environment
+      stop_grace_period: 60s
+      restart: unless-stopped
+      networks:
+        - app-network
+
+    app:
+      build: .
+      volumes:
+        - ./storage:/storage
+      environment:
+        - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/run_tracker
+        - PYTHONPATH=/app
+        
+      ports:
+        - "8000:8000"
+      depends_on:
+        - postgres
+      networks:
+        - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
